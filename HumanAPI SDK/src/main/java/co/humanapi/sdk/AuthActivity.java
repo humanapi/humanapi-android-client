@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -21,12 +22,12 @@ import java.util.Map;
 import java.util.Set;
 
 import us.monoid.json.JSONObject;
+import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 import us.monoid.web.TextResource;
 
 
 public class AuthActivity extends Activity {
-
     /** Connect base URL */
     // production
     private static final String BASE_URL = "https://connect.humanapi.co";
@@ -144,6 +145,12 @@ public class AuthActivity extends Activity {
         Log.d("hapi-auth", ".. found humanId=" + humanId);
         Log.d("hapi-auth", ".. found sessionToken=" + sessionToken);
 
+        // TODO run in thread or async class
+        // Allow IO in main thread
+        if (android.os.Build.VERSION.SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         Resty resty = new Resty();
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("clientId", clientId);
@@ -151,12 +158,14 @@ public class AuthActivity extends Activity {
         data.put("humanId", humanId);
         data.put("sessionToken", sessionToken);
         try {
-            TextResource res = resty.text(TOKENS_URL, resty.content(new JSONObject(data)));
+            JSONResource res = resty.json(TOKENS_URL, resty.content(new JSONObject(data)));
             Log.d("hapi-auth", "result = " + res.toString());
-
             Intent intent = new Intent();
+            intent.putExtra("human_id", res.get("humanId").toString());
+            intent.putExtra("access_token", res.get("accessToken").toString());
+            intent.putExtra("public_token", res.get("publicToken").toString());
             setResult(RESULT_OK, intent);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e("hapi-auth", e.toString());
             setResult(RESULT_CANCELED);
         }

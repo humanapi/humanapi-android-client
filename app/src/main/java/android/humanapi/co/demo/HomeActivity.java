@@ -53,7 +53,7 @@ public class HomeActivity extends ActionBarActivity {
         //b.putString("client_secret", "");
 
         /* User identifier */
-        b.putString("user_id", "and_user_1");
+        b.putString("user_id", "and_user_2");
 
         /* Public token for existing user: if not specified Connect popup
             opened in "create" mode, otherwise in "edit" mode */
@@ -71,7 +71,10 @@ public class HomeActivity extends ActionBarActivity {
         }
         if (resultCode == RESULT_OK) {
             Log.d("hapi-home", "Authorization workflow completed");
-
+            Bundle b = data.getExtras();
+            Log.d("hapi-home", ".. human_id=" + b.getString("human_id"));
+            Log.d("hapi-home", ".. access_token=" + b.getString("access_token"));
+            Log.d("hapi-home", ".. public_token=" + b.getString("public_token"));
         } else if (resultCode == RESULT_CANCELED) {
             Log.d("hapi-home", "Authorization workflow cancelled");
         }
