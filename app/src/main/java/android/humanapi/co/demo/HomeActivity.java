@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import co.humanapi.client.HumanAPIClient;
+import co.humanapi.client.HumanAPIException;
+import us.monoid.json.JSONObject;
+
 
 public class HomeActivity extends ActionBarActivity {
 
@@ -53,7 +57,7 @@ public class HomeActivity extends ActionBarActivity {
         //b.putString("client_secret", "");
 
         /* User identifier */
-        b.putString("user_id", "and_user_2");
+        b.putString("user_id", "and_user_3");
 
         /* Public token for existing user: if not specified Connect popup
             opened in "create" mode, otherwise in "edit" mode */
@@ -75,6 +79,15 @@ public class HomeActivity extends ActionBarActivity {
             Log.d("hapi-home", ".. human_id=" + b.getString("human_id"));
             Log.d("hapi-home", ".. access_token=" + b.getString("access_token"));
             Log.d("hapi-home", ".. public_token=" + b.getString("public_token"));
+
+            /* Test API */
+            try {
+                HumanAPIClient client = new HumanAPIClient(b.getString("access_token"));
+                JSONObject h = client.humanEntity().get();
+                Log.d("hapi-home", "Got Human: " + h.toString());
+            } catch (HumanAPIException e) {
+                e.printStackTrace();
+            }
         } else if (resultCode == RESULT_CANCELED) {
             Log.d("hapi-home", "Authorization workflow cancelled");
         }

@@ -80,6 +80,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="base64-2.3.8" level="project" />
     <orderEntry type="library" exported="" name="javacc-4.1" level="project" />
     <orderEntry type="library" exported="" name="resty-0.3.2" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-20.0.0" level="project" />
