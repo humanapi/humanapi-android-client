@@ -24,4 +24,4 @@ HumanAPI consists of two parts placed into respective packages:
 - Copy `HumanAPI SDK` into your project
 - Add `HumanAPI SDK` as dependency for your application
 
-Example can be found in `app/src/main/java/android/humanapi/co/demo/HomeActivity.java`
+Code example can be found in `app/src/main/java/android/humanapi/co/demo/HomeActivity.java`
