@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 18
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId "android.humanapi.co.demo"
-        minSdkVersion 8
-        targetSdkVersion 20
+        minSdkVersion 9
+        targetSdkVersion 18
         versionCode 1
         versionName "1.0"
     }

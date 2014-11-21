@@ -1,13 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 18
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId "co.humanapi.sdk"
         minSdkVersion 9
-        targetSdkVersion 9
+        targetSdkVersion 18
         versionCode 1
         versionName "1.0"
     }
