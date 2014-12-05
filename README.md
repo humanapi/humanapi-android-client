@@ -27,6 +27,7 @@ HumanAPI consists of two parts placed into respective packages:
 Code example can be found in `app/src/main/java/android/humanapi/co/demo/HomeActivity.java`
 
 ## Eclipse instructions
+
  - Install Eclipse 
  - Install Gradle 1.10 from here http://www.gradle.org/downloads
  - Download and install Android stand alone SDK - https://developer.android.com/sdk/installing/index.html?pkg=tools
@@ -35,3 +36,11 @@ Code example can be found in `app/src/main/java/android/humanapi/co/demo/HomeAct
  	- Install sdk/platform tools/build-tools/sdk-platform (5.x ex)/google-apis/android-support-lib/google repo/Android support repo
  - git clone our sdk repo
  - gradle build
+ 
+ ## ADT Eclipse sample instructions 
+ - Compile this repo on an Eclipse (tested on Luna)
+ - Select the project on Navigator -> Run -> Run As -> Android Application
+ - This should load the app in a simulator and you can open the connect popup.
+ - The popup needs to be configured with valid client_id/client_secret in android.app.Activity.HomeActivity  
+   
+ 
