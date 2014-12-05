@@ -1,5 +1,9 @@
 # HumanAPI Android Client
 
+## Eclipse Users!
+
+- Refer to the branch https://github.com/humanapi/humanapi-android-client/tree/eclipse_version_adt_sample instead. The instructions below are for Android Studio users. 
+
 ## What's inside
 
 Overall folders description:
@@ -25,3 +29,4 @@ HumanAPI consists of two parts placed into respective packages:
 - Add `HumanAPI SDK` as dependency for your application
 
 Code example can be found in `app/src/main/java/android/humanapi/co/demo/HomeActivity.java`
+
