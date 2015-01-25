@@ -17,7 +17,7 @@ public class AbstractListableEntity extends AbstractEntity {
     /** Path to the entity root (prefix) */
     protected String master;
 
-    protected AbstractPeriodicalEntity(HumanAPIClient client, String master) {
+    protected AbstractListableEntity(HumanAPIClient client, String master) {
         super(client);
         this.master = master;
     }
