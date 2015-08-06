@@ -1,1 +1,1 @@
-include ':app', ':HumanAPI SDK'
+include ':app', ':connectSDK'
