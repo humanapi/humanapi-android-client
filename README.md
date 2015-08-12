@@ -1,8 +1,12 @@
 # HumanAPI Android Client
 
+> This client should only be used for the Wellness API if your application does not have a proper backend. It is not recommended for use with larger implementations or the Clinical API.
+
+>See the `master` branch of this repo for most use cases.
+
 ## Eclipse Users!
 
-- Refer to the branch https://github.com/humanapi/humanapi-android-client/tree/eclipse_version_adt_sample instead. The instructions below are for Android Studio users. 
+- Refer to the branch https://github.com/humanapi/humanapi-android-client/tree/eclipse_version_adt_sample instead. The instructions below are for Android Studio users.
 
 ## What's inside
 
@@ -15,7 +19,7 @@ Overall folders description:
 HumanAPI consists of two parts placed into respective packages:
 
 - `co.humanapi.client`: client classes used to access Data API (requires access_token)
-- `co.humanapi.sdk`: browser based UI for Authorize and Connect user flows 
+- `co.humanapi.sdk`: browser based UI for Authorize and Connect user flows
 
 ## How to start demo
 
