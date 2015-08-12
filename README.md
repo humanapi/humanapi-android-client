@@ -1,25 +1,40 @@
-# Human API Android SDK (Work in Progress)
+# Human API Android SDK
+The purpose of this SDK is to handle the Human Connect popup to allow your users to easily authenticate their data within your application. Specifically, it handles the launch of and events from Human Connect, while passing on the `sessionTokenObject` to your server for secure token exchange.
+
+### Assumptions
+* Token exchange and data sync are performed on your server
+* Your `clientSecret` and user `accessTokens` are not exposed to the client device
+
+>If you are building a standalone application for wellness API data and do not have a backend database, refer to the client in the `wellnessDirect` branch of this repository.
+
+>For security reasons, this is not recommended for large implementations or clinical use.
+
+###Demo Project
+You can find a demo implementation in the `androidStudioDemo` branch of this repository.
+
+---
 
 ## How To Use SDK In Your Project
 
 ### 1. Import SDK Module
-* Copy `connectSDK` folder into your project's `app` folder
-* Import `connectSDK` as a module for your application
- * Go to `File -> New -> Import Module -> Source Directory` & Browse the project path for `connectSDK` folder
- * Specify the Module Name as `:connectSDK`
+* Copy `humanapi-sdk` folder into your project's `app` folder
+* Import `humanapi-sdk` as a module for your application
+ * Go to `File -> New -> Import Module -> Source Directory` & Browse the project path for `humanapi-sdk` folder
+ * Specify the Module Name as `:humanapi-sdk`
 * Let Android Studio build the project.
 * Open `build.gradle (Module:app)` file and add the following line in the dependencies block:
 ```
-compile project(:'connectSDK')
+compile project(':humanapi-sdk')
 ```
 *  Press the “sync now” link to start a sync of gradle files
 
 ### 2. Launch Human Connect
 * Add a function to launch Connect along with:
- - `user_id`: Unique ID of there user on your system
+ - `client_user_id`: Unique ID of there user on your system
  - `clientId`: Unique Id of your Human API application
  - `auth_url`: URL on your server to post `sessionTokenObject` and complete the token exchange process
- - `public_token` (for existing users to launch in edit mode)
+ - `public_token`: Necessary token for existing users to launch Connect in "edit mode"
+ - `language`: (Optional) language code [as detailed here](http://hub.humanapi.co/docs/customizing-human-connect#localization)
 
 ```java
   public void onConnect(View view) {
@@ -32,11 +47,14 @@ compile project(:'connectSDK')
       b.putString("auth_url", "http://10.0.2.2:3000/sessionToken");
 
       /* User identifier */
-      b.putString("user_id", "and_usdgasenjr_4");
+      b.putString("user_id", "test_user@gmail.com");
 
-      /* Public token for existing user: if not specified Connect popup
-          opened in "create" mode, otherwise in "edit" mode */
-      //b.putString("public_token", "...");
+      /* PublicToken (mandatory for existing users)
+      If not specified, Connect popup opens in "create" mode, otherwise it opens in "edit" mode */
+      //b.putString("public_token", "e56fa0350866bcf266da442cb974d84e");
+
+      /* Locale (optional) */
+      //b.putString("language", "es");
 
       intent.putExtras(b);
       startActivityForResult(intent, HUMANAPI_AUTH);
@@ -45,10 +63,11 @@ compile project(:'connectSDK')
 ### 3. [Server-side] Finish Authentication Flow
    * Receive sessionTokenObject to previously specified `auth_url`
    * Sign it with `clientSecret` from the developer portal
-   * POST signed `sessionTokenObject` from your server to Human API Tokens Endpoint
+   * POST signed `sessionTokenObject` from your server to Human API Tokens Endpoint:
    `https://user.humanapi.co/v1/connect/tokens`
    * Retrieve and store `humanId`, `accessToken` and `publicToken` on your server for use to query user data from Human API
-   * Return status `200 OK` with payload containing `publicToken` to store on device:
+   * Return status `200 OK` with payload containing `publicToken` to store on device for future launches of Human Connect:
+
    ```
    {
      publicToken: "2767d6oea95f4c3db8e8f3d0a1238302"
@@ -92,7 +111,7 @@ compile project(:'connectSDK')
    ```
 
 ### 4.Implement Callback functions
- - `RESULT_OK`: Equivalent of finish callback. `public_token` from token exchange will be reurned here.
+ - `RESULT_OK`: Equivalent of the finish() callback. `public_token` from token exchange will be returned here.
  - `RESULT_CANCELED`: (optional) User closed Human Connect without connecting a source
 
 ```java
