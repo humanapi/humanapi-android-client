@@ -67,9 +67,9 @@ public class ConnectActivity extends Activity {
             if (publicToken != null) {
                 ub.appendQueryParameter("public_token", publicToken);
             }
-//            if (language != null) {
-//                ub.appendQueryParameter("language", language);
-//            }
+            if (language != null) {
+                ub.appendQueryParameter("language", language);
+            }
             ub.appendQueryParameter("finish_url", FINISH_CB);
             ub.appendQueryParameter("close_url", CLOSE_CB);
         } catch (MalformedURLException e) {
@@ -112,8 +112,8 @@ public class ConnectActivity extends Activity {
         Log.d("hapi-auth", "Auth URL: " + authURL);
 
 
-        if (b.containsKey("user_id")) {
-            userId = b.getString("user_id");
+        if (b.containsKey("client_user_id")) {
+            userId = b.getString("client_user_id");
         }
         if (b.containsKey("public_token")) {
             publicToken = b.getString("public_token");
@@ -163,7 +163,6 @@ public class ConnectActivity extends Activity {
         Log.d("hapi-auth", "Finish callback started w/ url: " + url);
         Uri uri = Uri.parse(url);
         String humanId = uri.getQueryParameter("human_id");
-//        String clientId = uri.getQueryParameter("client_id");
         String sessionToken = uri.getQueryParameter("session_token");
         Log.d("hapi-auth", ".. found humanId=" + humanId);
         Log.d("hapi-auth", ".. found clientId=" + clientId);
@@ -201,7 +200,6 @@ public class ConnectActivity extends Activity {
 
     private void onClose() {
         Log.d("hapi-auth", "Close callback started");
-        //Optional: Do something on close
 
         setResult(RESULT_CANCELED);
         finish();

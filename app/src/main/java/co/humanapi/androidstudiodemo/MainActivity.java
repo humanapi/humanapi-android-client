@@ -1,17 +1,14 @@
 package co.humanapi.androidstudiodemo;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.json.JSONObject;
-
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     static final int HUMANAPI_AUTH = 1;
 
@@ -48,12 +45,15 @@ public class MainActivity extends ActionBarActivity {
         /* URL on your server to handle token swap and finalize authentication: http://hub.humanapi.co/docs/integrating-human-connect#finalize-the-user-authentication */
         b.putString("auth_url", "http://10.0.2.2:3000/sessionToken");
 
-        /* User identifier */
-        b.putString("user_id", "testuser@test.com");
+        /* Unique User identifier on your system (will be returned with final Human API credentials) */
+        b.putString("client_user_id", "test_user@test.com");
 
-        /* Public token for existing user: if not specified Connect popup
-            opened in "create" mode, otherwise in "edit" mode */
-        //b.putString("public_token", "...");
+        /* PublicToken (mandatory for existing users)
+        If not specified, Connect popup opens in "create" mode, otherwise it opens in "edit" mode */
+        //b.putString("public_token", "e56fa0350866bcf266da442cb974d84e");
+
+        /* Locale (optional) */
+        //b.putString("language", "es");
 
         intent.putExtras(b);
         startActivityForResult(intent, HUMANAPI_AUTH);
@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
             Log.d("hapi-home", "Authorization workflow completed");
             Bundle b = data.getExtras();
             Log.d("hapi-home", ".. public_token=" + b.getString("public_token"));
-
+            //Save publicToken to supply to HumanConnect on subsequent launches
 
         } else if (resultCode == RESULT_CANCELED) {
             Log.d("hapi-home", "Authorization workflow cancelled");
