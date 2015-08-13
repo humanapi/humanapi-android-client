@@ -47,7 +47,7 @@ compile project(':humanapi-sdk')
       b.putString("auth_url", "http://10.0.2.2:3000/sessionToken");
 
       /* User identifier */
-      b.putString("user_id", "test_user@gmail.com");
+      b.putString("client_user_id", "test_user@gmail.com");
 
       /* PublicToken (mandatory for existing users)
       If not specified, Connect popup opens in "create" mode, otherwise it opens in "edit" mode */
