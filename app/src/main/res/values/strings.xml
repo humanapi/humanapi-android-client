@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">AndroidStudioDemo</string>
-
-    <string name="connect_health">Launch Human Connect</string>
-    <string name="action_settings">Settings</string>
-</resources>

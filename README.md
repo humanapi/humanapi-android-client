@@ -5,7 +5,7 @@ The purpose of this SDK is to handle the Human Connect popup to allow your users
 * Token exchange and data sync are performed on your server
 * Your `clientSecret` and user `accessTokens` are not exposed to the client device
 
->If you are building a standalone application for wellness API data and do not have a backend database, refer to the client in the `wellnessDirect` branch of this repository.
+>If you are building a standalone application for the Wellness API and do not have a backend database, refer to the client in the `wellnessDirect` branch of this repository.
 
 >For security reasons, this is not recommended for large implementations or clinical use.
 
