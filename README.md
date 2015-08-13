@@ -17,7 +17,7 @@ You can find a demo implementation in the `androidStudioDemo` branch of this rep
 ## How To Use SDK In Your Project
 
 ### 1. Import SDK Module
-* Copy `humanapi-sdk` folder into your project's `app` folder
+* Copy `humanapi-sdk` folder somewhere within your project's `app` folder
 * Import `humanapi-sdk` as a module for your application
  * Go to `File -> New -> Import Module -> Source Directory` & Browse the project path for `humanapi-sdk` folder
  * Specify the Module Name as `:humanapi-sdk`
@@ -31,7 +31,7 @@ compile project(':humanapi-sdk')
 ### 2. Launch Human Connect
 * Add a function to launch Connect along with:
  - `client_user_id`: Unique ID of there user on your system
- - `clientId`: Unique Id of your Human API application
+ - `client_id`: Unique Id of your Human API application
  - `auth_url`: URL on your server to post `sessionTokenObject` and complete the token exchange process
  - `public_token`: Necessary token for existing users to launch Connect in "edit mode"
  - `language`: (Optional) language code [as detailed here](http://hub.humanapi.co/docs/customizing-human-connect#localization)
