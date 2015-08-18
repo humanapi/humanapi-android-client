@@ -74,41 +74,43 @@ compile project(':humanapi-sdk')
    }
    ```
 
-   For more info, see the detailed guide here: (http://hub.humanapi.co/v1.0/docs/integrating-human-connect)
+ For more info, see the detailed guide here: (http://hub.humanapi.co/v1.0/docs/integrating-human-connect)
 
-   Example server code in Node.js
-   ```javascript
-    //Endpoint for specified 'authURL'
-    app.post('/sessionToken', function(req, res, next) {
+ Example server code in Node.js
+ ```javascript
+ //Endpoint for specified 'authURL'
+ app.post('/sessionToken', function(req, res, next) {
 
-      var sessionTokenObject = req.body;
-      // grab client secret from app settings page and `sign` `sessionTokenObject` with it.
-      sessionTokenObject.clientSecret = '<Your-Client-Secret>';
+   var sessionTokenObject = req.body;
+   // grab client secret from app settings page and `sign` `sessionTokenObject` with it.
+   sessionTokenObject.clientSecret = '<Your-Client-Secret>';
 
-      request({
-        method: 'POST',
-        uri: 'https://user.humanapi.co/v1/connect/tokens',
-        json: sessionTokenObject
-      }, function(err, resp, body) {
-          if(err) return res.send(422);
+   request({
+     method: 'POST',
+     uri: 'https://user.humanapi.co/v1/connect/tokens',
+     json: sessionTokenObject
+   }, function(err, resp, body) {
+       if(err) return res.send(422);
 
-          console.log("Success!");
-          // at this point if request was successful body object
-          // will have `accessToken`, `publicToken` and `humanId` associated in it.
-          // You will want to store these fields in your system in association to the user's data.
-          console.log("humanId = " + body.humanId);
-          console.log("accessToken = "+ body.accessToken);
-          console.log("publicToken = "+ body.publicToken);
+        //Use these values to determine which user launched Connect
+       console.log("clientId ="+ body.clientId);
+       console.log("clientId ="+ body.clientId);
 
-          //Send back publicToken to iOS app
-          var responseJSON = {publicToken: body.publicToken}
-          console.log(JSON.stringify(responseJSON));
+       /* Human API credentials.
+       Save these with the user model in your system. */
+       console.log("humanId = " + body.humanId);
+       console.log("accessToken = "+ body.accessToken);
+       console.log("publicToken = "+ body.publicToken);
 
-          res.setHeader('Content-Type', 'application/json');
-          res.status(201).send(JSON.stringify(responseJSON));
-        });
-    });
-   ```
+
+       //Send back publicToken to Android app
+       var responseJSON = {publicToken: body.publicToken};
+
+       res.setHeader('Content-Type', 'application/json');
+       res.status(201).send(JSON.stringify(responseJSON));
+     });
+ });
+ ```
 
 ### 4.Implement Callback functions
  - `RESULT_OK`: Equivalent of the finish() callback. `public_token` from token exchange will be returned here.
