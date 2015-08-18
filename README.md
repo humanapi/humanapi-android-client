@@ -28,6 +28,11 @@ compile project(':humanapi-sdk')
 ```
 *  Press the “sync now” link to start a sync of gradle files
 
+If not already present, be sure to add `android.permission.INTERNET` to your app's `AndroidManifest.xml` file:
+```
+<uses-permission android:name="android.permission.INTERNET" />
+```
+
 ### 2. Launch Human Connect
 * Add a function to launch Connect along with:
  - `client_user_id`: Unique ID of there user on your system
