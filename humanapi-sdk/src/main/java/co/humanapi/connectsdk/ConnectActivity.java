@@ -150,6 +150,10 @@ public class ConnectActivity extends Activity {
                     Log.d("hapi-auth", "Close Callback");
                     self.onClose();
                     return true;
+                } else if (!url.contains(BASE_URL) && !url.contains(FINISH_CB) && !url.contains(CLOSE_CB)){
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(i);
+                    return true;
                 } else {
                     return false;
                 }
