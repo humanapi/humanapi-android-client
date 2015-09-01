@@ -3,6 +3,7 @@ package co.humanapi.connectsdk;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -142,7 +143,10 @@ public class ConnectActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.d("hapi-auth", "loading: " + url);
-                if (url.startsWith(FINISH_CB)) {
+
+                if (url.startsWith(BASE_URL)) {
+                    return false;
+                } else if (url.startsWith(FINISH_CB)) {
                     Log.d("hapi-auth", "Finish Callback");
                     self.onFinish(url);
                     return true;
@@ -150,12 +154,21 @@ public class ConnectActivity extends Activity {
                     Log.d("hapi-auth", "Close Callback");
                     self.onClose();
                     return true;
-                } else if (!url.contains(BASE_URL) && !url.contains(FINISH_CB) && !url.contains(CLOSE_CB)){
-                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(i);
-                    return true;
                 } else {
-                    return false;
+                    if (Build.VERSION.SDK_INT > 18) {
+                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(i);
+                        return true;
+                    } else {
+                        if (view.canGoBack()) {
+                            view.goBack();
+                            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(i);
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
                 }
             }
         });
