@@ -24,6 +24,9 @@ import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
 import us.monoid.web.TextResource;
 
+/*
+    Human API Android SDK - v 1.1
+ */
 
 public class ConnectActivity extends Activity {
 
@@ -41,6 +44,7 @@ public class ConnectActivity extends Activity {
     private String userId;
     private String publicToken;
     private String language;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,9 @@ public class ConnectActivity extends Activity {
             }
             if (language != null) {
                 ub.appendQueryParameter("language", language);
+            }
+            if (mode != null) {
+                ub.appendQueryParameter("mode", mode);
             }
             ub.appendQueryParameter("finish_url", FINISH_CB);
             ub.appendQueryParameter("close_url", CLOSE_CB);
@@ -121,6 +128,9 @@ public class ConnectActivity extends Activity {
         if (b.containsKey("language")) {
             language = b.getString("language");
         }
+        if (b.containsKey("mode")) {
+            mode = b.getString("mode");
+        }
     }
 
     /** Adjust web settings */
@@ -154,7 +164,20 @@ public class ConnectActivity extends Activity {
                     return false;
                 }
             }
+
+            @Override
+            public void onLoadResource (WebView view, String url){
+                if (url.contains("hapi_external=1")) {
+                    url = url.replace("hapi_external=1","");
+                    Log.d("hapi-auth", "launching external link:"+url);
+                    view.stopLoading();
+
+                    Intent externalBrowserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(externalBrowserIntent);
+                }
+            }
         });
+
     }
 
 
@@ -182,7 +205,7 @@ public class ConnectActivity extends Activity {
         data.put("clientId", clientId);
         data.put("humanId", humanId);
         data.put("sessionToken", sessionToken);
-        Log.d("hapi-auth", "jsonObject=" + new JSONObject(data) );
+        Log.d("hapi-auth", "jsonObject=" + new JSONObject(data));
 
 
         try {
