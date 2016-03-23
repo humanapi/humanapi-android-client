@@ -9,6 +9,12 @@ Check out the guide on the Developer Hub: http://hub.humanapi.co/docs/mobile-gui
 >See `androidStudioDemo` branch for an example project
 
 # Changelog
+
+### 1.1 - 3/23/2016
+
+* Updated behavior for external links
+
+
 ### 1.0 - 3/15/2016
 
 * Added support for "mode"

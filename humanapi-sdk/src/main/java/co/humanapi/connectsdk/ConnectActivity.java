@@ -25,7 +25,7 @@ import us.monoid.web.Resty;
 import us.monoid.web.TextResource;
 
 /*
-    Human API Android SDK - v 1.0
+    Human API Android SDK - v 1.1
  */
 
 public class ConnectActivity extends Activity {
@@ -164,7 +164,20 @@ public class ConnectActivity extends Activity {
                     return false;
                 }
             }
+
+            @Override
+            public void onLoadResource (WebView view, String url){
+                if (url.contains("hapi_external=1")) {
+                    url = url.replace("hapi_external=1","");
+                    Log.d("hapi-auth", "launching external link:"+url);
+                    view.stopLoading();
+
+                    Intent externalBrowserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(externalBrowserIntent);
+                }
+            }
         });
+
     }
 
 
