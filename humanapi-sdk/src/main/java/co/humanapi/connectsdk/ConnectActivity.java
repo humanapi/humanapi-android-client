@@ -13,7 +13,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ import java.util.Map;
 import us.monoid.json.JSONObject;
 import us.monoid.web.JSONResource;
 import us.monoid.web.Resty;
-import us.monoid.web.TextResource;
 
 /*
     Human API Android SDK - v 1.1
@@ -43,8 +41,8 @@ public class ConnectActivity extends Activity {
     private String authURL;
     private String userId;
     private String publicToken;
-    private String language;
-    private String mode;
+    private HashMap <String,String> options;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +69,10 @@ public class ConnectActivity extends Activity {
             if (publicToken != null) {
                 ub.appendQueryParameter("public_token", publicToken);
             }
-            if (language != null) {
-                ub.appendQueryParameter("language", language);
-            }
-            if (mode != null) {
-                ub.appendQueryParameter("mode", mode);
+            if(options != null){
+                for (Map.Entry<String, String> entry : options.entrySet()) {
+                    ub.appendQueryParameter(entry.getKey(), entry.getValue());
+                }
             }
             ub.appendQueryParameter("finish_url", FINISH_CB);
             ub.appendQueryParameter("close_url", CLOSE_CB);
@@ -125,11 +122,8 @@ public class ConnectActivity extends Activity {
         if (b.containsKey("public_token")) {
             publicToken = b.getString("public_token");
         }
-        if (b.containsKey("language")) {
-            language = b.getString("language");
-        }
-        if (b.containsKey("mode")) {
-            mode = b.getString("mode");
+        if(b.containsKey("options")){
+            options = (HashMap <String,String>) b.getSerializable("options");
         }
     }
 
