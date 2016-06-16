@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int HUMANAPI_AUTH = 1;
@@ -52,8 +55,12 @@ public class MainActivity extends AppCompatActivity {
         If not specified, Connect popup opens in "create" mode, otherwise it opens in "edit" mode */
         //b.putString("public_token", "e56fa0350866bcf266da442cb974d84e");
 
-        /* Locale (optional) */
-        //b.putString("language", "es");
+
+        /* Options - see http://hub.humanapi.co/v1.1/docs/customizing-human-connect */
+//        HashMap<String, String> options = new HashMap<String, String>();
+//        options.put("mode", "wellness");
+//        options.put("language", "es");
+//        b.putSerializable("options", options);
 
         intent.putExtras(b);
         startActivityForResult(intent, HUMANAPI_AUTH);
