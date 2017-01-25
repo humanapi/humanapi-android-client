@@ -6,11 +6,9 @@ The purpose of this SDK is to handle the Human Connect popup to allow your users
 
 Check out the guide on the Developer Hub: http://hub.humanapi.co/docs/mobile-guide-android
 
->See `androidStudioDemo` branch for an example project
-
 # Changelog
 
-### 1.2 - 6/16/2015
+### 1.2 - 6/16/2016
 
 * Made options more extensible - language/mode are now passed into Bundle as HashMap <String, String> options 
 
